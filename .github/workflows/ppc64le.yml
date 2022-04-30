@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-18.04]
-        cibw_python: ["cp39-*"]
+        cibw_python: [ "cp38-*" , "cp39-*" ]
         cibw_manylinux: [ manylinux2014 ]
     steps:
       - uses: actions/checkout@v2
@@ -42,8 +42,8 @@ jobs:
           # skip aarch64 tests which often exceed the 6 hour time limit
           CIBW_TEST_SKIP: "*ppc64le"
           CIBW_ARCHS_LINUX: ppc64le
-          CIBW_MANYLINUX_X86_64_IMAGE: ${{ matrix.cibw_manylinux }}
-          CIBW_MANYLINUX_I686_IMAGE: ${{ matrix.cibw_manylinux }}
+          CIBW_MANYLINUX_PPC64LE_IMAGE: ${{ matrix.cibw_manylinux }}
+          CIBW_ENVIRONMENT_PASS_LINUX: SKIMAGE_LINK_FLAGS
           SKIMAGE_LINK_FLAGS: "-Wl,--strip-debug"
       - uses: actions/upload-artifact@v2
         with:
